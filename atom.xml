@@ -1,0 +1,338 @@
+<?xml version="1.0" encoding="utf-8"?>
+<feed xmlns="http://www.w3.org/2005/Atom">
+
+  <title><![CDATA[神奇小屋]]></title>
+  <link href="http://toaol.github.io/atom.xml" rel="self"/>
+  <link href="http://toaol.github.io/"/>
+  <updated>2015-11-13T17:25:27+08:00</updated>
+  <id>http://toaol.github.io/</id>
+  <author>
+    <name><![CDATA[Toaol]]></name>
+    <email><![CDATA[loutao95@gmail.com]]></email>
+  </author>
+  <generator uri="http://octopress.org/">Octopress</generator>
+
+  
+  <entry>
+    <title type="html"><![CDATA[Tab 缩进和空格缩进]]></title>
+    <link href="http://toaol.github.io/blog/tab-retract-and-space-retract.html"/>
+    <updated>2015-07-02T22:15:29+08:00</updated>
+    <id>http://toaol.github.io/blog/tab-retract-and-space-retract</id>
+    <content type="html"><![CDATA[<p>写代码的途中为了代码的美观以及提高代码的可读性，常常需要使用缩进。举一个例子：</p>
+
+<figure class='code'><figcaption><span></span></figcaption><div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class='line-number'>1</span>
+<span class='line-number'>2</span>
+<span class='line-number'>3</span>
+<span class='line-number'>4</span>
+<span class='line-number'>5</span>
+<span class='line-number'>6</span>
+<span class='line-number'>7</span>
+<span class='line-number'>8</span>
+<span class='line-number'>9</span>
+<span class='line-number'>10</span>
+<span class='line-number'>11</span>
+</pre></td><td class='code'><pre><code class='C++'><span class='line'>    <span class="n">std</span><span class="o">::</span><span class="n">string</span>         <span class="n">fileName_</span><span class="p">;</span>
+</span><span class='line'>    <span class="n">std</span><span class="o">::</span><span class="n">fstream</span>        <span class="n">input_</span><span class="p">;</span>
+</span><span class='line'>    <span class="kt">int</span>                 <span class="n">line_</span><span class="p">;</span>
+</span><span class='line'>    <span class="kt">int</span>                 <span class="n">column_</span><span class="p">;</span>
+</span><span class='line'>    <span class="n">TokenLocation</span>       <span class="n">loc_</span><span class="p">;</span>
+</span><span class='line'>    <span class="kt">char</span>                <span class="n">currentChar_</span><span class="p">;</span>
+</span><span class='line'>    <span class="kt">bool</span>                <span class="n">errorFlag_</span><span class="p">;</span>
+</span><span class='line'>    <span class="n">State</span>               <span class="n">state_</span><span class="p">;</span>
+</span><span class='line'>    <span class="n">Token</span>               <span class="n">token_</span><span class="p">;</span>
+</span><span class='line'>    <span class="n">Dictionary</span>          <span class="n">dictionary_</span><span class="p">;</span>
+</span><span class='line'>    <span class="n">std</span><span class="o">::</span><span class="n">string</span>         <span class="n">buffer_</span><span class="p">;</span>
+</span></code></pre></td></tr></table></div></figure>
+
+
+<p>在写代码的过程中使用了 <code>Tab</code>
+键来对齐代码，然而，如果就这样保存了，那么在某些时候可能会出现一些奇怪的效果。</p>
+
+<!--more-->
+
+
+<p>在我设置 <code>"tab_size": 2</code> 的 Sublime Text 编辑器中打开代码，效果如下：</p>
+
+<figure class='code'><figcaption><span></span></figcaption><div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class='line-number'>1</span>
+<span class='line-number'>2</span>
+<span class='line-number'>3</span>
+<span class='line-number'>4</span>
+<span class='line-number'>5</span>
+<span class='line-number'>6</span>
+<span class='line-number'>7</span>
+<span class='line-number'>8</span>
+<span class='line-number'>9</span>
+<span class='line-number'>10</span>
+<span class='line-number'>11</span>
+</pre></td><td class='code'><pre><code class='C++'><span class='line'>    <span class="n">std</span><span class="o">::</span><span class="n">string</span>     <span class="n">fileName_</span><span class="p">;</span>
+</span><span class='line'>    <span class="n">std</span><span class="o">::</span><span class="n">fstream</span>    <span class="n">input_</span><span class="p">;</span>
+</span><span class='line'>    <span class="kt">int</span>         <span class="n">line_</span><span class="p">;</span>
+</span><span class='line'>    <span class="kt">int</span>         <span class="n">column_</span><span class="p">;</span>
+</span><span class='line'>    <span class="n">TokenLocation</span>   <span class="n">loc_</span><span class="p">;</span>
+</span><span class='line'>    <span class="kt">char</span>        <span class="n">currentChar_</span><span class="p">;</span>
+</span><span class='line'>    <span class="kt">bool</span>        <span class="n">errorFlag_</span><span class="p">;</span>
+</span><span class='line'>    <span class="n">State</span>       <span class="n">state_</span><span class="p">;</span>
+</span><span class='line'>    <span class="n">Token</span>       <span class="n">token_</span><span class="p">;</span>
+</span><span class='line'>    <span class="n">Dictionary</span>      <span class="n">dictionary_</span><span class="p">;</span>
+</span><span class='line'>    <span class="n">std</span><span class="o">::</span><span class="n">string</span>     <span class="n">buffer_</span><span class="p">;</span>
+</span></code></pre></td></tr></table></div></figure>
+
+
+<p>如果在默认 tab 为 8 个空格的记事本中打开，显示同样会很奇怪。</p>
+
+<p>出现这样的效果是因为代码在保存的时候保存的是 <code>\t</code> 而非空格。</p>
+
+<figure class='code'><figcaption><span></span></figcaption><div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class='line-number'>1</span>
+</pre></td><td class='code'><pre><code class='C++'><span class='line'><span class="n">std</span><span class="o">::</span><span class="n">string</span>         <span class="n">fileName_</span><span class="p">;</span>
+</span></code></pre></td></tr></table></div></figure>
+
+
+<p> 保存的格式就是</p>
+
+<pre><code class="`C++"> std::string\t\t\tfileName_;
+</code></pre>
+
+<p> 那么在不同的环境打开的时候，环境就会根据自己的设置来显示它，就造成了上面的情况。</p>
+
+<p>上面的情况只是让代码变得不好看，实际上，还有可能出现更严重的问题。比如 Python 语言。</p>
+
+<p> Python 的缩进是有意义的，那么，一旦在代码中同时使用了空格缩进与 Tab 缩进，代码就会有问题。</p>
+
+<pre><code class="`python"> if a == 1:
+    print('Hello, ')
+    print('world')
+</code></pre>
+
+<p>如果这段代码上一句使用了 Tab 缩进而下一句使用了空格缩进，那么保存的格式就应该是</p>
+
+<pre><code class="`python"> if a == 1:\n\tprint('Hello, ')\n    print('world')
+</code></pre>
+
+<p> 在执行这个程序的时候会报错，可是从肉眼看上去这段程序并没有错误。</p>
+
+<p> 所以说，为了让程序在各处看起来都一样，应该坚持使用空格缩进。不过不停地按空格是很难受的，正确的做法是在写的时候用 Tab，而在保存的时候保存为空格。</p>
+
+<p>在 Visual Studio 里面，按照 <code>Tools --&gt; Options --&gt; Text Editor --&gt; C /C++--&gt;Tabs</code>，选中 <code>Insert spaces</code> 就好。</p>
+
+<p>在 Sublime Text 里面，在个人设置中添加一行</p>
+
+<figure class='code'><figcaption><span></span></figcaption><div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class='line-number'>1</span>
+</pre></td><td class='code'><pre><code class='python'><span class='line'><span class="s">&quot;translate_tabs_to_spaces&quot;</span><span class="p">:</span> <span class="n">true</span>
+</span></code></pre></td></tr></table></div></figure>
+
+
+<p>其它的代码编辑器应该都提供了类似功能，写代码的时候都应该加上。</p>
+]]></content>
+  </entry>
+  
+  <entry>
+    <title type="html"><![CDATA[使用 Octopress 打造个人博客]]></title>
+    <link href="http://toaol.github.io/blog/first-one.html"/>
+    <updated>2015-06-11T13:10:08+08:00</updated>
+    <id>http://toaol.github.io/blog/first-one</id>
+    <content type="html"><![CDATA[<p>终于把个人博客给搭建起来了。第一篇文章，就介绍一下使用 Octopress 打造个人博客的全过程。</p>
+
+<h2>0. 什么是 Octopress</h2>
+
+<p>Octopress 是基于 Jekyll 的一个静态博客生成工具，使用 Ruby 语言编写，能通过简单的配置生成一个静态网站，还能托管到 Github Pages，免费并且独立。</p>
+
+<p>除此之外，Octopress 还提供了许多的第三方插件和主题，要是动手能力强还可以自己去制作插件。</p>
+
+<h2>1. 环境搭建</h2>
+
+<h3>1.1 Git</h3>
+
+<p>我使用的是 Windows 操作系统，需要到<a href="http://git-scm.com/download/">http://git-scm.com/download/</a>下载 Git 的 Windows 版本。</p>
+
+<p>Git 的使用可以参考<a href="http://www.liaoxuefeng.com/wiki/0013739516305929606dd18361248578c67b8067c8c017b000">这个教程</a>。</p>
+
+<!--more-->
+
+
+<h3>1.2 Ruby</h3>
+
+<p>由于 Octopress 使用 Ruby 语言编写，因此必须要有 Ruby 环境的支持，在它的官方站点<a href="https://www.ruby-lang.org/zh_cn/downloads/">https://www.ruby-lang.org/zh_cn/downloads/</a>下载最新版本，目前稳定版本是2.2.2。安装完后在命令行输入<code>ruby -v</code>，如果显示版本信息，则安装成功。</p>
+
+<p>完成 Ruby 的安装之后，还需要安装 DevKit 工具包。DevKit 是 Ruby 安装 C 扩展所必须的工具，在<a href="http://rubyinstaller.org/downloads/">http://rubyinstaller.org/downloads</a>下载特定版本的 DevKit，双击安装完成后进入安装目录。执行：</p>
+
+<figure class='code'><figcaption><span></span></figcaption><div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class='line-number'>1</span>
+</pre></td><td class='code'><pre><code class='ruby'><span class='line'><span class="n">ruby</span> <span class="n">dk</span><span class="o">.</span><span class="n">rb</span> <span class="n">init</span>
+</span></code></pre></td></tr></table></div></figure>
+
+
+<p>此时会在此目录上生成一个 config.yml 文件。用记事本打开后在最后面加上一行，添加上</p>
+
+<figure class='code'><figcaption><span></span></figcaption><div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class='line-number'>1</span>
+</pre></td><td class='code'><pre><code class='ruby'><span class='line'> <span class="o">-</span> <span class="n">ruby</span><span class="err">安装根目录完整路径（是根目录不是</span><span class="n">bin</span><span class="err">目录）</span>
+</span></code></pre></td></tr></table></div></figure>
+
+
+<p>然后执行</p>
+
+<figure class='code'><figcaption><span></span></figcaption><div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class='line-number'>1</span>
+</pre></td><td class='code'><pre><code class='ruby'><span class='line'><span class="n">ruby</span> <span class="n">dk</span><span class="o">.</span><span class="n">rb</span> <span class="n">install</span>
+</span></code></pre></td></tr></table></div></figure>
+
+
+<p>搞定。</p>
+
+<p>还有一个天朝特色问题。身处天朝，在使用 gem 工具安装第三方工具的时候，由于服务器在墙外，可能会出现网络错误的情况。可以使用<a href="http://rubyinstaller.org/downloads/">淘宝的 RubyGems 镜像</a>。戳进去跟着设置，几步就能搞定。</p>
+
+<h2>3. 本地配置</h2>
+
+<h3>3.1 本地安装</h3>
+
+<p>打开命令提示符，依次执行：</p>
+
+<figure class='code'><figcaption><span></span></figcaption><div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class='line-number'>1</span>
+<span class='line-number'>2</span>
+<span class='line-number'>3</span>
+<span class='line-number'>4</span>
+</pre></td><td class='code'><pre><code class='ruby'><span class='line'><span class="n">git</span> <span class="nb">clone</span> <span class="ss">git</span><span class="p">:</span><span class="sr">//</span><span class="n">github</span><span class="o">.</span><span class="n">com</span><span class="o">/</span><span class="n">imathis</span><span class="o">/</span><span class="n">octopress</span><span class="o">.</span><span class="n">git</span> <span class="n">octopress</span>
+</span><span class='line'><span class="n">cd</span> <span class="n">otcopress</span>
+</span><span class='line'><span class="n">gem</span> <span class="n">install</span> <span class="n">bundler</span> <span class="o">-</span><span class="n">V</span>
+</span><span class='line'><span class="n">bundle</span> <span class="n">install</span>
+</span></code></pre></td></tr></table></div></figure>
+
+
+<p>此时本地的 Octopress 安装完毕，就是这么简单，由于需要安装的东西比较多，可能用的时间比较长，耐心的就好。</p>
+
+<p>下一步安装默认主题。执行</p>
+
+<figure class='code'><figcaption><span></span></figcaption><div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class='line-number'>1</span>
+</pre></td><td class='code'><pre><code class='ruby'><span class='line'><span class="n">rake</span> <span class="n">install</span>
+</span></code></pre></td></tr></table></div></figure>
+
+
+<p>再执行</p>
+
+<figure class='code'><figcaption><span></span></figcaption><div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class='line-number'>1</span>
+</pre></td><td class='code'><pre><code class='ruby'><span class='line'><span class="n">rake</span> <span class="n">preview</span>
+</span></code></pre></td></tr></table></div></figure>
+
+
+<p>即可在本地预览。打开浏览器，输入<code>localhost:4000</code>，就能看见默认的博客内容了。</p>
+
+<h3>3.2 发布内容</h3>
+
+<p>接下来就应该要发布内容。打开命令提示符，进入到 Octopress 目录，输入</p>
+
+<figure class='code'><figcaption><span></span></figcaption><div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class='line-number'>1</span>
+</pre></td><td class='code'><pre><code class='ruby'><span class='line'><span class="n">rake</span> <span class="n">new_post</span><span class="o">[</span><span class="s2">&quot;title&quot;</span><span class="o">]</span>
+</span></code></pre></td></tr></table></div></figure>
+
+
+<p>自己写一个 tile，此时在 <code>source/_post</code>下就能生成一个 Markdown 文件，打开编辑器编辑这个文件。顺便说一下，Windows 下的 Markdown 编辑器感觉都不是特别的好，这一款<a href="http://markdown.xiaoshujiang.com/">小书匠编辑器</a>用起来还行，滚动什么的特别渣，不过同步功能不错，能同步编辑印象笔记。要是想要 geek 范一点，可以用一些文本编辑器配上 Markdown 插件。现在就是在使用 Sublime text 编辑器配上 MarkdownEditing 插件，特别爽。</p>
+
+<p>编辑完成后，执行</p>
+
+<figure class='code'><figcaption><span></span></figcaption><div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class='line-number'>1</span>
+<span class='line-number'>2</span>
+</pre></td><td class='code'><pre><code class='ruby'><span class='line'><span class="n">rake</span> <span class="n">generate</span>
+</span><span class='line'><span class="n">rake</span> <span class="n">preview</span>
+</span></code></pre></td></tr></table></div></figure>
+
+
+<p>即可查看新的内容。</p>
+
+<h2>4. Github Pages</h2>
+
+<p>光在本地一点都不好玩，现在就把它部署到 Github 上，这样小伙伴们才能看到嘛。</p>
+
+<p>首先创建一个仓库，取名为 username.github.io，username 就是自己的 Github 用户名，创建完成会得到一个 SSH 地址。再在本地执行</p>
+
+<figure class='code'><figcaption><span></span></figcaption><div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class='line-number'>1</span>
+</pre></td><td class='code'><pre><code class='ruby'><span class='line'><span class="n">rake</span> <span class="n">setup_github_pages</span>
+</span></code></pre></td></tr></table></div></figure>
+
+
+<p>会提示你输入 SSH，把那段地址复制过来粘贴到这里就行。
+接下来执行</p>
+
+<figure class='code'><figcaption><span></span></figcaption><div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class='line-number'>1</span>
+<span class='line-number'>2</span>
+</pre></td><td class='code'><pre><code class='ruby'><span class='line'><span class="n">rake</span> <span class="n">generate</span>
+</span><span class='line'><span class="n">rake</span> <span class="n">deploy</span>
+</span></code></pre></td></tr></table></div></figure>
+
+
+<p>现在就能在 <code>http://username.github.io</code>访问自己的博客了。</p>
+
+<p>现在已经基本完成了，只是还有一个小问题。远程的 master 分支是整个网站，而本地的这些东西是代码本身，本地是没有master分支的。所有最好建立一个 source 分支同步代码，这样当本地的代码发生不测的时候还能从容不迫地 clone 下远程库的代码来，否则的话……</p>
+
+<p>执行命令</p>
+
+<figure class='code'><figcaption><span></span></figcaption><div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class='line-number'>1</span>
+<span class='line-number'>2</span>
+<span class='line-number'>3</span>
+</pre></td><td class='code'><pre><code class='ruby'><span class='line'><span class="n">git</span> <span class="n">add</span> <span class="o">.</span>
+</span><span class='line'><span class="n">git</span> <span class="n">commit</span> <span class="o">-</span><span class="n">m</span> <span class="s2">&quot;submit code&quot;</span>
+</span><span class='line'><span class="n">git</span> <span class="n">push</span> <span class="n">origin</span> <span class="n">source</span>
+</span></code></pre></td></tr></table></div></figure>
+
+
+<p>这样会建立一个 source 分支并把本地代码同步到 source。当然，这一步也可以不用做。</p>
+
+<h2>5. 深度配置</h2>
+
+<h3>5.1 第三方主题</h3>
+
+<p>Octopress 提供了非常多的第三方主题，可以在<a href="https://github.com/imathis/octopress/wiki/3rd-Party-Octopress-Themes">这个页面</a>找到。</p>
+
+<p>安装第三方主题也很简单，我的博客使用了 greyshade 主题，执行：</p>
+
+<figure class='code'><figcaption><span></span></figcaption><div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class='line-number'>1</span>
+<span class='line-number'>2</span>
+<span class='line-number'>3</span>
+<span class='line-number'>4</span>
+</pre></td><td class='code'><pre><code class='ruby'><span class='line'><span class="n">git</span> <span class="nb">clone</span> <span class="n">git</span><span class="vi">@github</span><span class="o">.</span><span class="n">com</span><span class="ss">:shashankmehta</span><span class="o">/</span><span class="n">greyshade</span><span class="o">.</span><span class="n">git</span> <span class="o">.</span><span class="n">themes</span><span class="o">/</span><span class="n">greyshade</span>
+</span><span class='line'><span class="n">echo</span> <span class="s2">&quot;\$greyshade: color;&quot;</span> <span class="o">&gt;&gt;</span> <span class="n">sass</span><span class="o">/</span><span class="n">custom</span><span class="o">/</span><span class="n">_colors</span><span class="o">.</span><span class="n">scss</span> <span class="sr">//</span><span class="no">Substitue</span> <span class="s1">&#39;color&#39;</span> <span class="n">with</span> <span class="n">your</span> <span class="n">highlight</span> <span class="n">color</span>
+</span><span class='line'><span class="n">rake</span> <span class="s2">&quot;install[greyshade]&quot;</span>
+</span><span class='line'><span class="n">rake</span> <span class="n">generate</span>
+</span></code></pre></td></tr></table></div></figure>
+
+
+<p>即可完成操作。</p>
+
+<p>不过，当安装好这些东西后，浏览器打开，会发现异常缓慢，这还是天朝特色。F12 看了看，发现所请求的一个来自 Twitter 和 一个来自 Google 的 js 文件花了 30 多秒，这个问题直接在代码里面把请求资源的代码注释掉即可。</p>
+
+<h3>5.2 汉化</h3>
+
+<p>开始的时候，网站的大多数内容都是英文的，需要对其进行汉化。</p>
+
+<p>汉化可以简单粗暴一点，在 source 文件夹里面定位要改的词什么的，改过来就好了。</p>
+
+<h3>5.3 评论系统</h3>
+
+<p>Octopress 自带有一个 disqus 评论系统，去申请一个用户名再添加到 _config.yml 文件里面就好，不过这个评论系统不太符合中国国情，可以使用<a href="http://duoshuo.com/">多说</a>评论系统。</p>
+
+<p>添加多说评论系统可以参考<a href="http://havee.me/internet/2013-02/add-duoshuo-commemt-system-into-octopress.html">这个教程</a>。</p>
+
+<h2>最后：一个奇怪的问题</h2>
+
+<p>最后来说一下我遇到的一个奇怪的问题。</p>
+
+<p>在我把网站部署到 Github Pages 之后，进入了我的 Github 页面，一时手贱，添加了一个 README.md 文件，我以为到时候直接  <code>git pull</code>  就好。当下一次同步的时候，我才发现远程的 master 分支是网站，而本地的这些东西是代码，在本地压根就没有 master 分支。</p>
+
+<p>部署网站的时候，远程库就比本地库领先一步，这样就没办法部署。其实这个问题是很好解决的，强制覆盖远程库就行了，然而，我并不知道执行 <code>rake deploy</code> 的时候发生了什么，我只知道肯定是生成了一个静态网站，这个静态网站就是真正的本地 master 分支，然后 <code>git push origin master</code>。</p>
+
+<p>接着，我把远程 master 分支 clone 下来，回退版本到 create README.md 之前，再同步远程库。然而，并没有什么 egg 用。这个，我至今百思不得其解，感觉上是完全没有问题的，不过就是不成，我也木有办法。</p>
+
+<p>最后，我从 rake 这个命令上去想这个问题。我知道 rake 一定会触发某个脚本，在那个脚本里面完成这一系列的工作。我随便到一个目录下执行这个命令，它提示我没有 rakefile 文件。去 octopress 目录下去看，果然找到了 rakefile。</p>
+
+<p>其实到了现在，已经有很多办法解决这个问题了，只要修改 rakefile 就行。只是我被这个问题折腾够了，简单粗暴地在 <code>git push origin #{deploy_branch}</code> 后面加上 <code>--force</code>。</p>
+
+<p>搞定。</p>
+
+<h2>参考资料</h2>
+
+<ul>
+<li><a href="http://shengmingzhiqing.com/blog/setup-octopress-with-github-pages.html/">http://shengmingzhiqing.com/blog/setup-octopress-with-github-pages.html/</a></li>
+<li><a href="http://lucida.me/blog/my-first-article/">http://lucida.me/blog/my-first-article/</a></li>
+<li><a href="http://812lcl.com/blog/2013/10/26/octopressce-bian-lan-ji-ping-lun-xi-tong-ding-zhi/">http://812lcl.com/blog/2013/10/26/octopressce-bian-lan-ji-ping-lun-xi-tong-ding-zhi/</a></li>
+</ul>
+
+]]></content>
+  </entry>
+  
+</feed>
