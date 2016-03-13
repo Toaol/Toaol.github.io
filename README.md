@@ -1,0 +1,1 @@
+This repository won't be updated, and the new address is [loutao.site](http://loutao.site)
